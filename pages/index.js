@@ -1,8 +1,8 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import Header from "../components/Header";
-import LotteryEntrance from "../components/LotteryEntrance";
-import { useMoralis } from "react-moralis";
+// import LotteryEntrance from "../components/LotteryEntrance";
+// import { useMoralis } from "react-moralis";
 
 const supportedChains = ["31337", "5"];
 
