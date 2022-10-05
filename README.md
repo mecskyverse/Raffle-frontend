@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is Next.js App and Frontend for Lottery Smart Contract developed with hardhat.
 
 ## Getting Started
 
