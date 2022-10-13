@@ -38,10 +38,21 @@ export default function LotteryEntrance() {
       updateUI();
     }
   }, [isWeb3Enabled]);
+
   const handleSuccess = async function (tx) {
     await tx.wait(1);
     handleNewNotification(tx);
   };
+  const handleNewNotification = function () {
+    dispatch({
+      type: "info",
+      message: "Transaction Complete!",
+      title: "Transaction Notification",
+      position: "topR",
+      icon: "bell",
+    });
+  };
+
   return (
     <div>
       Hi From Lottery Entrance!
