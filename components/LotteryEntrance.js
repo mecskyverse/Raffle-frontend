@@ -8,11 +8,13 @@ export default function LotteryEntrance() {
   // here we are importing an chaindid object and renaming it to chainIdHex
   const { chainId: chainIdHex, isWeb3Enabled } = useMoralis();
   const [entranceFee, setEntranceFee] = useState("0");
+  const [numPlayers, setNumPlayers] = useState("0");
+  const [recentWinner, setRecentWinner] = useState("0");
   const chainId = parseInt(chainIdHex);
-
   const raffleAddress =
     chainId in contractAddress ? contractAddress[chainId][0] : null;
   const dispatch = useNotification();
+
   const { runContractFunction: enterRaffle } = useWeb3Contract({
     abi: abi,
     contractAddress: raffleAddress,
@@ -28,19 +30,38 @@ export default function LotteryEntrance() {
     params: {},
   });
 
+  const { runContractFunction: getNumberOfPlayers } = useWeb3Contract({
+    abi: abi,
+    contractAddress: raffleAddress,
+    functionName: "getNumberOfPlayers",
+    params: {},
+  });
+
+  const { runContractFunction: getRecentWinner } = useWeb3Contract({
+    abi: abi,
+    contractAddress: raffleAddress,
+    functionName: "getRecentWinner",
+    params: {},
+  });
+
+  async function updateUI() {
+    const entranceFeeFromContract = await getEntranceFee();
+    const numPlayersFromCall = (await getNumberOfPlayers()).toString();
+    const recentWinnerFromCall = (await getRecentWinner()).toString();
+    setEntranceFee(entranceFeeFromContract);
+    setNumPlayers(numPlayersFromCall);
+    setRecentWinner(recentWinnerFromCall);
+  }
+
   useEffect(() => {
     if (isWeb3Enabled) {
-      async function updateUI() {
-        let entranceFeeFromContract = await getEntranceFee();
-
-        setEntranceFee(entranceFeeFromContract);
-      }
       updateUI();
     }
   }, [isWeb3Enabled]);
 
   const handleSuccess = async function (tx) {
     await tx.wait(1);
+    updateUI();
     handleNewNotification(tx);
   };
   const handleNewNotification = function () {
@@ -71,6 +92,11 @@ export default function LotteryEntrance() {
 
           <div>
             Entrance Fee is : {ethers.utils.formatUnits(entranceFee, "ether")}
+            <br />
+            The Current number of Players is:{numPlayers}
+            <br />
+            The most previous winner was: {recentWinner}
+            <br />
           </div>
         </div>
       ) : (
