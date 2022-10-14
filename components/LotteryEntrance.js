@@ -12,7 +12,7 @@ export default function LotteryEntrance() {
 
   const raffleAddress =
     chainId in contractAddress ? contractAddress[chainId][0] : null;
-  const dispatch = useNotification;
+  const dispatch = useNotification();
   const { runContractFunction: enterRaffle } = useWeb3Contract({
     abi: abi,
     contractAddress: raffleAddress,
@@ -68,7 +68,10 @@ export default function LotteryEntrance() {
           >
             Enter Raffle
           </button>
-          Entrance Fee is : {ethers.utils.formatUnits(entranceFee, "ether")}
+
+          <div>
+            Entrance Fee is : {ethers.utils.formatUnits(entranceFee, "ether")}
+          </div>
         </div>
       ) : (
         <div>Contract Not Detected</div>
