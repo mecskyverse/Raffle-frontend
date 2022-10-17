@@ -53,6 +53,13 @@ export default function LotteryEntrance() {
     setRecentWinner(recentWinnerFromCall);
   }
 
+  async function updateRecentWinner() {
+    const filter = {
+      address: contractAddress,
+      topics: [ethers.utils.id("WinnerPicked(address)")],
+    };
+    console.log(`filter... = ${filter.topics} `);
+  }
   useEffect(() => {
     if (isWeb3Enabled) {
       updateUI();
@@ -61,6 +68,7 @@ export default function LotteryEntrance() {
 
   const handleSuccess = async function (tx) {
     await tx.wait(1);
+    updateRecentWinner();
     updateUI();
     handleNewNotification(tx);
   };
