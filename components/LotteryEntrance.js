@@ -6,7 +6,12 @@ import { ethers } from "ethers";
 import { useNotification } from "web3uikit";
 export default function LotteryEntrance() {
   // here we are importing an chaindid object and renaming it to chainIdHex
-  const { chainId: chainIdHex, isWeb3Enabled, isLoading } = useMoralis();
+  const {
+    chainId: chainIdHex,
+    isWeb3Enabled,
+    isLoading,
+    isFetching,
+  } = useMoralis();
   const [entranceFee, setEntranceFee] = useState("0");
   const [numPlayers, setNumPlayers] = useState("0");
   const [recentWinner, setRecentWinner] = useState("0");
