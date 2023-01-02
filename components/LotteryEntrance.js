@@ -1,9 +1,8 @@
-import { useWeb3Contract } from "react-moralis";
 import { abi, contractAddress } from "../constants/index";
-import { useMoralis } from "react-moralis";
+import { useMoralis, useWeb3Contract } from "react-moralis";
 import { useEffect, useState } from "react";
-import { ethers } from "ethers";
 import { useNotification } from "web3uikit";
+import { ethers } from "ethers";
 export default function LotteryEntrance() {
   // here we are importing an chaindid object and renaming it to chainIdHex
   const {
@@ -15,7 +14,8 @@ export default function LotteryEntrance() {
   const [entranceFee, setEntranceFee] = useState("0");
   const [numPlayers, setNumPlayers] = useState("0");
   const [recentWinner, setRecentWinner] = useState("0");
-  const chainId = parseInt(chainIdHex);
+  const chainId = parseInt(chainIdHex)
+   console.log(`ChainId is ${chainId}`)
   const raffleAddress =
     chainId in contractAddress ? contractAddress[chainId][0] : null;
   const dispatch = useNotification();
@@ -50,12 +50,16 @@ export default function LotteryEntrance() {
   });
 
   async function updateUI() {
-    const entranceFeeFromContract = await getEntranceFee();
+    
+    const entranceFeeFromContract = (await getEntranceFee()).toString();
+    console.log(`In the update ui and value is ${entranceFeeFromContract}`)
+    
     const numPlayersFromCall = (await getNumberOfPlayers()).toString();
     const recentWinnerFromCall = (await getRecentWinner()).toString();
     setEntranceFee(entranceFeeFromContract);
     setNumPlayers(numPlayersFromCall);
     setRecentWinner(recentWinnerFromCall);
+    console.log(`recent winner is ${recentWinnerFromCall}`)
   }
 
   async function updateRecentWinner() {
