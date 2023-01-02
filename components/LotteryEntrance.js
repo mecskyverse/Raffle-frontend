@@ -15,7 +15,7 @@ export default function LotteryEntrance() {
   const [numPlayers, setNumPlayers] = useState("0");
   const [recentWinner, setRecentWinner] = useState("0");
   const chainId = parseInt(chainIdHex)
-   console.log(`ChainId is ${chainId}`)
+  
   const raffleAddress =
     chainId in contractAddress ? contractAddress[chainId][0] : null;
   const dispatch = useNotification();
@@ -52,14 +52,14 @@ export default function LotteryEntrance() {
   async function updateUI() {
     
     const entranceFeeFromContract = (await getEntranceFee()).toString();
-    console.log(`In the update ui and value is ${entranceFeeFromContract}`)
+   
     
     const numPlayersFromCall = (await getNumberOfPlayers()).toString();
     const recentWinnerFromCall = (await getRecentWinner()).toString();
     setEntranceFee(entranceFeeFromContract);
     setNumPlayers(numPlayersFromCall);
     setRecentWinner(recentWinnerFromCall);
-    console.log(`recent winner is ${recentWinnerFromCall}`)
+    
   }
 
   async function updateRecentWinner() {
@@ -67,7 +67,7 @@ export default function LotteryEntrance() {
       address: contractAddress,
       topics: [ethers.utils.id("WinnerPicked(address)")],
     };
-    console.log(`filter... = ${filter.topics} `);
+   
   }
   useEffect(() => {
     if (isWeb3Enabled) {
@@ -122,7 +122,10 @@ export default function LotteryEntrance() {
           </div>
         </div>
       ) : (
-        <div>Contract Not Detected</div>
+        <>
+        
+        <div>Contract Not Detected Connect your wallet</div>
+        </>
       )}
     </div>
   );
