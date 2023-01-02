@@ -124,7 +124,7 @@ export default function LotteryEntrance() {
       ) : (
         <>
         
-        <div>Contract Not Detected Connect your wallet</div>
+        <div>Contract Not Detected Connect your wallet to goerli testnet</div>
         </>
       )}
     </div>
