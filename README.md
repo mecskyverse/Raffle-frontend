@@ -1,6 +1,6 @@
 This is Next.js App and Frontend for Lottery Smart Contract developed with hardhat.<br>
 You can try out the project at IPFS server at ( ipfs://bafybeicbmkr4xwxr33u5z3mt67gxsya5yacgyitmnrt3gwymn3sv3w62cu/ ).<br>
-If this not works than you can always visit [here](raffle-frontend-27oggcmkh-mecskyverse.vercel.app).
+If this not works than you can always visit [here](https://raffle-frontend-phi.vercel.app/).
 ## Getting Started
 
 First, run the development server:
